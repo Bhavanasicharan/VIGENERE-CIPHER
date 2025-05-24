@@ -1,4 +1,6 @@
 # VIGENERE-CIPHER
+## RAKSHITHA P
+## 212223220083
 ## EX. NO: 1(D)
  
 
@@ -29,62 +31,41 @@ STEP-7: The junction character where these two meet forms the cipher character.
 STEP-8: Repeat the above steps to generate the entire cipher text.
 
 
-## PROGRAM
+## PROGRAM :
 ```
-#include <stdio.h>
-#include <string.h>
-#include <ctype.h>
+def encrypt(text, key):
+    return ''.join(
+        chr((ord(t.upper()) - 65 + ord(key[i % len(key)].upper()) - 65) % 26 + 65)
+        for i, t in enumerate(text) if t.isalpha()
+    )
 
-void vigenere_encrypt(char *msg, char *key, char *enc) {
-    int msgLen = strlen(msg), keyLen = strlen(key);
-    for (int i = 0, j = 0; i < msgLen; i++) {
-        if (isalpha(msg[i])) {
-            enc[i] = ((toupper(msg[i]) - 'A' + toupper(key[j % keyLen]) - 'A') % 26) + 'A';
-            j++;
-        } else {
-            enc[i] = msg[i];
-        }
-    }
-    enc[msgLen] = '\0';
-}
+def decrypt(text, key):
+    return ''.join(
+        chr((ord(t.upper()) - 65 - (ord(key[i % len(key)].upper()) - 65) + 26) % 26 + 65)
+        for i, t in enumerate(text) if t.isalpha()
+    )
 
-void vigenere_decrypt(char *enc, char *key, char *dec) {
-    int encLen = strlen(enc), keyLen = strlen(key);
-    for (int i = 0, j = 0; i < encLen; i++) {
-        if (isalpha(enc[i])) {
-            dec[i] = ((toupper(enc[i]) - 'A' - (toupper(key[j % keyLen]) - 'A') + 26) % 26) + 'A';
-            j++;
-        } else {
-            dec[i] = enc[i];
-        }
-    }
-    dec[encLen] = '\0';
-}
+choice = input("1. Encrypt  2. Decrypt\nEnter choice: ")
 
-int main() {
-    char msg[1000], key[100];
-    char enc[1000], dec[1000];
-    
-    printf("Simulation of Vigenere Cipher\n");
-    printf("Enter the message: ");
-    scanf(" %s", msg);
-    printf("Enter the key: ");
-    scanf(" %s", key);
-    
-    vigenere_encrypt(msg, key, enc);
-    printf("Encrypted Message: %s\n", enc);
-    
-    vigenere_decrypt(enc, key, dec);
-    printf("Decrypted Message: %s\n", dec);
-    
-    return 0;
-}
+if choice == '1':
+    text = input("Enter plain text: ")
+    key = input("Enter key: ")
+    print("Cipher Text:", encrypt(text, key))
+
+elif choice == '2':
+    text = input("Enter cipher text: ")
+    key = input("Enter key: ")
+    print("Plain Text:", decrypt(text, key))
+else:
+    print("Invalid choice")
 ```
 
+## OUTPUT :
+![Screenshot 2025-04-21 223036](https://github.com/user-attachments/assets/36295ba6-3b83-46f5-a455-d41f0e77653a)
 
-## OUTPUT
-![WhatsApp Image 2025-04-07 at 08 39 03_b6e1925e](https://github.com/user-attachments/assets/ecc4fd43-beb8-4da6-bd70-7e5ffc845ed8)
+![Screenshot 2025-04-21 223112](https://github.com/user-attachments/assets/efbb7c80-d63f-4ff9-a5d0-12cf961db3bd)
 
+![Screenshot 2025-04-21 223131](https://github.com/user-attachments/assets/0b37fcd7-1b85-4d6f-9e02-8f0a93cda917)
 
-## RESULT
-The program executed successfully.
+## RESULT :
+Hence the given vignere cipher program executed successfully.
